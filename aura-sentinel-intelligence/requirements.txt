@@ -1,0 +1,17 @@
+Core Framework for API
+
+Flask
+requests
+
+Machine Learning / Data Processing
+
+pandas
+scikit-learn
+
+Generative AI / Direct API
+
+google-genai # Comunicação direta com o Gemini
+
+Outras utilities
+
+python-dotenv

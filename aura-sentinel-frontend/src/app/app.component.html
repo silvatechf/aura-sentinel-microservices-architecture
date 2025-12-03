@@ -1,0 +1,146 @@
+<div class="aura-container">
+  
+
+<header class="aura-header">
+    <div class="logo-section">
+      <img src="assets/aura-icon-32x32.svg" alt="AURA Sentinel Logo" class="aura-logo">
+      <h1 class="app-title">{{ t('APP_TITLE') }}</h1>
+    </div>
+    <div class="header-controls">
+      <div class="user-display">
+        <p class="user-id-label">{{ t('USER_ID') }}</p>
+        <span class="user-id-value">{{ userId || t('CONNECTING') }}</span>
+      </div>
+      <div class="language-selector">
+        <select [ngModel]="language" (change)="setLanguage($event)">
+          <option value="en">English</option>
+          <option value="es">Español</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  
+
+<section class="status-controls-section card">
+    <div class="status-indicator">
+      <div class="status-icon" [ngClass]="{'bg-green-500/10 text-green-500': modoEnforce, 'bg-yellow-500/10 text-yellow-500': !modoEnforce}">
+        {{ modoEnforce ? '🛡️' : '⚠️' }}
+      </div>
+      <div>
+        <h2 class="status-title">{{ t('STATUS_GLOBAL') }}</h2>
+        <span class="status-mode" [ngClass]="{'text-green-600': modoEnforce, 'text-yellow-600': !modoEnforce}">
+          {{ modoEnforce ? t('MODE_ENFORCEMENT') : t('MODE_MONITOR') }}
+        </span>
+        <p class="mode-note">
+          {{ modoEnforce ? t('NOTE_ON') : t('NOTE_OFF') }}
+        </p>
+      </div>
+    </div>
+
+    <div class="mode-toggle-group">
+      <span class="mode-label">{{ t('TOGGLE_MODE') }}</span>
+      <label class="switch">
+        <input type="checkbox" [ngModel]="modoEnforce" (change)="toggleModoEnforcement()">
+        <span class="slider round" [ngClass]="{'slider-checked': modoEnforce}"></span>
+      </label>
+    </div>
+  </section>
+
+  
+
+<section class="alerts-content-section">
+    
+
+<div class="metrics-grid">
+      <div class="metric-card" [class.border-blue-500]="true">
+        <p class="metric-label">{{ t('ALERTS_PENDING') }}</p>
+        <p class="metric-value text-blue-600">{{ (alertasPendentes | async)?.length || 0 }}</p>
+      </div>
+      <div class="metric-card" [class.border-red-600]="true">
+        <p class="metric-label">{{ t('RISK_REAL') }}</p>
+        <p class="metric-value text-red-600">{{ (alertasRiscoReal | async)?.length || 0 }}</p>
+      </div>
+      <div class="metric-card" [class.border-purple-600]="true">
+        <p class="metric-label">{{ t('EVENTS_TOTAL') }}</p>
+        <p class="metric-value text-purple-600">{{ (todosAlertas | async)?.length || 0 }}</p>
+      </div>
+      <div class="metric-card" [class.border-yellow-600]="true">
+        <p class="metric-label">Highest AURA Score</p>
+        <p class="metric-value text-yellow-600">{{ (highestAuraScore | async) || '0' }}%</p>
+      </div>
+    </div>
+
+    
+
+<div class="pending-alerts-card card">
+      <h2>{{ t('ALERTS_PENDING') }} ({{ t('ACTION_REQUIRED') }})</h2>
+      
+      <div *ngIf="(alertasPendentes | async)?.length === 0" class="empty-state">
+        <span class="text-green-500 text-2xl mr-2">✅</span>
+        <p class="text-gray-600">{{ t('EMPTY_ALERT') }}</p>
+      </div>
+
+      <div *ngIf="(alertasPendentes | async)?.length > 0" class="alerts-table-container">
+        <table class="alerts-table">
+          <thead>
+            <tr>
+              <th>{{ t('TABLE_CONFIDENCE') }}</th>
+              <th>{{ t('TABLE_ENDPOINT') }} / {{ t('USER_ID') }}</th>
+              <th>{{ t('TABLE_ANALYSIS') }}</th>
+              <th>{{ t('TABLE_ACTION') }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let alerta of (alertasPendentes | async)">
+              <td>
+                <span class="score-tag" [class]="{'score-critical': alerta.auraConfidenceScore >= 0.95, 'score-high': alerta.auraConfidenceScore < 0.95 && alerta.auraConfidenceScore >= 0.7}">
+                    {{ (alerta.auraConfidenceScore * 100).toFixed(0) }}%
+                </span>
+              </td>
+              <td>
+                <p class="font-medium text-gray-800">{{ alerta.endpointId }}</p>
+                <p class="text-xs text-gray-500">{{ alerta.userId }}</p>
+              </td>
+              <td>
+                <span class="insight-tag">[GEMINI INSIGHT]:</span>
+                {{ alerta.cognitiveAnalysis }}
+              </td>
+              <td>
+                <button (click)="marcarComoMitigado(alerta)" class="btn-mitigate">{{ t('MITIGATE_BTN') }}</button>
+                <button (click)="marcarComoRiscoReal(alerta)" class="btn-confirm">{{ t('CONFIRM_BTN') }}</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    
+
+<div class="history-section card">
+      <h2>{{ t('HISTORY_TITLE') }}</h2>
+      
+      <div *ngIf="(alertasHistorico | async)?.length === 0" class="empty-state history-empty">
+        <p class="text-gray-500">No historical responses recorded yet.</p>
+      </div>
+
+      <div *ngIf="(alertasHistorico | async)?.length > 0" class="history-grid">
+        <div *ngFor="let alerta of (alertasHistorico | async)" class="history-item" 
+          [ngClass]="{'border-green-500': alerta.status === 'MITIGADO', 'border-red-600': alerta.status === 'RISCO_REAL'}">
+          <p class="history-status-label" [ngClass]="{'text-green-600': alerta.status === 'MITIGADO', 'text-red-600': alerta.status === 'RISCO_REAL'}">
+            {{ alerta.status === 'MITIGADO' ? t('RISK_MITIGATED') : t('RISK_REAL') }}
+          </p>
+          <p class="history-endpoint">{{ alerta.endpointId }}</p>
+          <p class="history-insight">{{ alerta.cognitiveAnalysis }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+
+<footer class="aura-footer">
+    <p>&copy; 2025 AURA Sentinel. All rights reserved.</p>
+  </footer>
+</div>

@@ -1,0 +1,340 @@
+/* ------------------------------------- */
+/* Global and Base Styles */
+/* ------------------------------------- */
+:host {
+  display: block;
+  font-family: 'Inter', Arial, sans-serif;
+  background-color: #f0f2f5; /* Light, Amigável Background */
+}
+
+.aura-container {
+  max-width: 1400px;
+  margin: 20px auto;
+  background-color: #ffffff;
+  border-radius: 16px; 
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15); /* Sombra mais profunda para efeito 'flutuante' */
+  padding: 0;
+  overflow: hidden; 
+}
+
+/* Base Card Style */
+.card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  padding: 24px;
+  margin: 0 30px 20px 30px; /* Internal spacing adjustment */
+  border: 1px solid #e0e6ed; /* Borda suave */
+}
+
+/* ------------------------------------- */
+/* Header & Navigation (Professional Dark Bar) */
+/* ------------------------------------- */
+.aura-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 30px;
+  background-color: #34495e; /* Professional Dark Blue */
+  color: #ecf0f1; 
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+
+.aura-logo {
+  width: 32px; 
+  height: 32px;
+  margin-right: 12px;
+}
+
+.app-title {
+  /* CORREÇÃO: Aumentando o peso e o contraste da cor */
+  font-size: 1.8em;
+  font-weight: 900; /* Extra bold */
+  color: #00bcd4; /* Ciano Brilhante para maior destaque */
+  letter-spacing: -0.5px;
+}
+
+.user-display {
+    text-align: right;
+}
+
+.user-id-label {
+    font-size: 0.85em;
+    color: #bdc3c7;
+}
+
+.user-id-value {
+    font-family: monospace;
+    font-size: 0.75em;
+    background-color: #4a637c;
+    padding: 3px 6px;
+    border-radius: 4px;
+}
+
+/* Language Selector Style */
+.language-selector select {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #7f8c8d;
+    background-color: #4a637c;
+    color: #ecf0f1;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+/* ------------------------------------- */
+/* Status Card & Toggle (Visually Rich) */
+/* ------------------------------------- */
+.status-controls-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 30px; 
+  background-color: #f9fbfd;
+  margin: 20px 30px;
+  border-radius: 12px;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.status-icon {
+  font-size: 2em;
+  padding: 10px;
+  border-radius: 12px; /* Mais arredondado */
+  background-color: #e8f5e9; /* Fundo suave */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.status-title {
+  font-size: 1.4em;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.status-mode {
+  font-size: 1.1em;
+  font-weight: 800;
+}
+
+/* Toggle Switch Styling */
+.mode-toggle-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 28px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 28px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #2ecc71; /* Green for ON */
+}
+
+input:checked + .slider:before {
+  transform: translateX(22px);
+}
+
+
+/* ------------------------------------- */
+/* Metrics Grid & Table (Rich UI) */
+/* ------------------------------------- */
+.alerts-content-section {
+    padding: 0 30px;
+}
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.metric-card {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Sombra mais clean */
+}
+
+.metric-label {
+    font-size: 0.9em;
+    color: #7f8c8d;
+    font-weight: 600;
+}
+
+.metric-value {
+    font-size: 2.5em; /* Maior e mais impactante */
+    font-weight: 900;
+    color: #2c3e50;
+}
+
+/* Pending Alerts Table (Melhorando a UX) */
+.pending-alerts-card {
+    margin-top: 30px;
+}
+
+.alerts-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px; /* Mais espaçamento entre as linhas */
+}
+
+.alerts-table thead th {
+  background-color: #f5f7f9; /* Fundo suave para o cabeçalho */
+  color: #7f8c8d;
+  padding: 14px 18px;
+  text-align: left;
+  font-weight: 700;
+  font-size: 0.8em;
+  text-transform: uppercase;
+}
+
+.alerts-table tbody tr {
+    background-color: #ffffff;
+    border-radius: 10px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* Efeito flutuante em cada linha */
+}
+
+.alerts-table tbody tr:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.alerts-table tbody td {
+  padding: 18px 15px;
+  color: #333;
+  vertical-align: top;
+}
+
+.alerts-table tbody td:first-child { border-top-left-radius: 10px; border-bottom-left-radius: 10px; }
+.alerts-table tbody td:last-child { border-top-right-radius: 10px; border-bottom-right-radius: 10px; }
+
+
+/* Customizations and Tags */
+.insight-tag {
+    font-weight: 700;
+    color: #8e44ad; /* Purple tag color */
+    background-color: #f4f2ff; /* Fundo suave para o insight */
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-right: 5px;
+}
+
+.score-critical { color: #c0392b; font-weight: 900; } 
+.score-high { color: #f39c12; font-weight: 900; } 
+.score-low { color: #27ae60; } 
+
+/* Buttons */
+.btn-mitigate, .btn-confirm {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px; 
+  cursor: pointer;
+  font-size: 0.9em;
+  font-weight: 700;
+  transition: all 0.2s ease;
+  margin-right: 10px;
+}
+
+.btn-mitigate {
+  background-color: #3498db; 
+  color: white;
+}
+
+.btn-mitigate:hover {
+  background-color: #2980b9;
+  transform: translateY(-1px);
+}
+
+.btn-confirm {
+  background-color: #e74c3c; 
+  color: white;
+}
+
+.btn-confirm:hover {
+  background-color: #c0392b;
+  transform: translateY(-1px);
+}
+
+/* History Section */
+.history-section h2 {
+    color: #34495e;
+    font-size: 1.5em;
+    font-weight: 700;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #bdc3c7; 
+    padding-bottom: 10px;
+}
+
+.history-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.history-item {
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+    background-color: #f8f9fa; /* Fundo suave para os itens de histórico */
+}
+
+.history-status-label {
+    font-size: 0.8em;
+    font-weight: 800;
+    margin-bottom: 5px;
+}
+.history-endpoint { font-size: 0.9em; font-weight: 600; color: #34495e; }
+.history-insight { font-size: 0.8em; color: #7f8c8d; }
+
+/* Footer */
+.aura-footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #34495e;
+  color: #bdc3c7;
+  font-size: 0.85em;
+  margin-top: 40px;
+}
