@@ -1,6 +1,4 @@
-/* ------------------------------------- */
-/* Global and Base Styles */
-/* ------------------------------------- */
+
 :host {
   display: block;
   font-family: 'Inter', Arial, sans-serif;
@@ -12,7 +10,7 @@
   margin: 20px auto;
   background-color: #ffffff;
   border-radius: 16px; 
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15); /* Sombra mais profunda para efeito 'flutuante' */
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15); 
   padding: 0;
   overflow: hidden; 
 }
@@ -23,19 +21,17 @@
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   padding: 24px;
-  margin: 0 30px 20px 30px; /* Internal spacing adjustment */
-  border: 1px solid #e0e6ed; /* Borda suave */
+  margin: 0 30px 20px 30px; 
+  border: 1px solid #e0e6ed; 
 }
 
-/* ------------------------------------- */
-/* Header & Navigation (Professional Dark Bar) */
-/* ------------------------------------- */
+
 .aura-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 24px 30px;
-  background-color: #34495e; /* Professional Dark Blue */
+  background-color: #34495e; 
   color: #ecf0f1; 
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
@@ -48,10 +44,9 @@
 }
 
 .app-title {
-  /* CORREÇÃO: Aumentando o peso e o contraste da cor */
   font-size: 1.8em;
-  font-weight: 900; /* Extra bold */
-  color: #00bcd4; /* Ciano Brilhante para maior destaque */
+  font-weight: 900; 
+  color: #00bcd4; 
   letter-spacing: -0.5px;
 }
 
@@ -83,9 +78,7 @@
     font-size: 0.9em;
 }
 
-/* ------------------------------------- */
-/* Status Card & Toggle (Visually Rich) */
-/* ------------------------------------- */
+
 .status-controls-section {
   display: flex;
   justify-content: space-between;
@@ -106,8 +99,8 @@
 .status-icon {
   font-size: 2em;
   padding: 10px;
-  border-radius: 12px; /* Mais arredondado */
-  background-color: #e8f5e9; /* Fundo suave */
+  border-radius: 12px; 
+  background-color: #e8f5e9; 
   display: flex;
   align-items: center;
   justify-content: center;
@@ -176,9 +169,6 @@ input:checked + .slider:before {
 }
 
 
-/* ------------------------------------- */
-/* Metrics Grid & Table (Rich UI) */
-/* ------------------------------------- */
 .alerts-content-section {
     padding: 0 30px;
 }
@@ -194,7 +184,7 @@ input:checked + .slider:before {
     background-color: #ffffff;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Sombra mais clean */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); 
 }
 
 .metric-label {
@@ -204,12 +194,12 @@ input:checked + .slider:before {
 }
 
 .metric-value {
-    font-size: 2.5em; /* Maior e mais impactante */
+    font-size: 2.5em;
     font-weight: 900;
     color: #2c3e50;
 }
 
-/* Pending Alerts Table (Melhorando a UX) */
+
 .pending-alerts-card {
     margin-top: 30px;
 }
@@ -217,11 +207,11 @@ input:checked + .slider:before {
 .alerts-table {
   width: 100%;
   border-collapse: separate;
-  border-spacing: 0 10px; /* Mais espaçamento entre as linhas */
+  border-spacing: 0 10px; 
 }
 
 .alerts-table thead th {
-  background-color: #f5f7f9; /* Fundo suave para o cabeçalho */
+  background-color: #f5f7f9;
   color: #7f8c8d;
   padding: 14px 18px;
   text-align: left;
@@ -234,7 +224,7 @@ input:checked + .slider:before {
     background-color: #ffffff;
     border-radius: 10px;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* Efeito flutuante em cada linha */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); 
 }
 
 .alerts-table tbody tr:hover {
@@ -255,8 +245,8 @@ input:checked + .slider:before {
 /* Customizations and Tags */
 .insight-tag {
     font-weight: 700;
-    color: #8e44ad; /* Purple tag color */
-    background-color: #f4f2ff; /* Fundo suave para o insight */
+    color: #8e44ad; 
+    background-color: #f4f2ff; 
     padding: 2px 6px;
     border-radius: 4px;
     margin-right: 5px;
@@ -318,7 +308,7 @@ input:checked + .slider:before {
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
-    background-color: #f8f9fa; /* Fundo suave para os itens de histórico */
+    background-color: #f8f9fa; 
 }
 
 .history-status-label {
