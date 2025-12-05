@@ -9,10 +9,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Classe principal do Agente de Endpoint AURA Sentinel.
- * Responsável por iniciar o cliente API e os serviços de monitoramento.
- */
+// main class
 public class AgentMain {
 
     private static final String ENDPOINT_ID = "HR-LAPTOP-14"; // ID estático para simulação
@@ -21,23 +18,20 @@ public class AgentMain {
     public static void main(String[] args) {
         System.out.println("AURA Sentinel Endpoint Agent starting...");
 
-        // O Agente deve usar 'com.fasterxml.jackson.core:jackson-databind' para JSON
-        // Certifique-se que esta dependência está no seu projeto Maven/Gradle para este módulo.
-
-        // 1. Inicializa o cliente API (para enviar dados ao Gateway)
+        
+        // 1. begin customer api
         ApiClient apiClient = new ApiClient();
         System.out.println("API Client initialized. Targeting: http://localhost:8080/api/v1");
 
-        // 2. Inicia o monitoramento em um thread agendado
-        // Em um sistema real, o monitoramento de arquivos e processos seria threads separados.
+        
         ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
         
-        // Agendar uma tarefa para enviar um evento de teste CRÍTICO a cada 10 segundos (Simulação)
+        
         scheduler.scheduleAtFixedRate(() -> {
             try {
                 System.out.println("--- Scheduling Telemetry Send ---");
                 
-                // Simulação: Cria um evento de acesso CRÍTICO a um arquivo Decoy
+                
                 Map<String, Object> context = new HashMap<>();
                 context.put("filePath", "C:\\Sensitive\\DecoyFile.dat");
                 context.put("processName", "malware_script.exe");
@@ -45,7 +39,7 @@ public class AgentMain {
                 TelemetryEvent criticalEvent = new TelemetryEvent(
                     ENDPOINT_ID, 
                     USER_ID, 
-                    "DECOY_ACCESS", // O evento crítico que dispara o score 0.99
+                    "DECOY_ACCESS", 
                     context
                 );
                 
@@ -58,7 +52,7 @@ public class AgentMain {
 
         System.out.println("Agent fully initialized. Monitoring events...");
         
-        // Adiciona um gancho de desligamento para fechar o scheduler (apenas em teste/simulação)
+        
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             System.out.println("Shutting down Agent scheduler...");
             scheduler.shutdown();
