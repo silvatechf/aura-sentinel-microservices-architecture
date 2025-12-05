@@ -5,14 +5,12 @@ import uuid
 import random
 import base64
 
-# --- Java Gateway Configuration (Must match application.yml) ---
 GATEWAY_URL = "http://localhost:8080/api/v1/agent/telemetry"
 
-# Credentials for the AGENT role (Must match SecurityConfig.java)
+
 AUTH_USERNAME = "agent"  
 AUTH_PASSWORD = "agente123" 
 
-# --- SIMULATION FUNCTIONS ---
 
 def generate_telemetry_event(event_type: str, endpoint_id: str, user_id: str, context: dict) -> dict:
     """Generates a dictionary mimicking the TelemetryEvent DTO."""
@@ -61,7 +59,7 @@ def send_event(event: dict):
     except Exception as e:
         print(f"❌ An unexpected error occurred: {e}")
 
-# --- SIMULATED ATTACK SCENARIOS ---
+
 
 def simulate_decoy_access_attack():
     """Simulates a CRITICAL attack: access to a Decoy file (ML score = 0.99)."""
@@ -113,7 +111,6 @@ if __name__ == "__main__":
     
     print("--- AURA Sentinel: Endpoint Telemetry Simulator ---")
     
-    # Simulates the different attack scenarios
     simulate_decoy_access_attack()
     time.sleep(1)
     simulate_file_write_anomaly()
