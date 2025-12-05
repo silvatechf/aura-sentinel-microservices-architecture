@@ -3,19 +3,19 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged, User } from 'firebase/auth';
 import { getFirestore, onSnapshot, collection, query, where, doc, updateDoc, Firestore } from 'firebase/firestore';
 
-// Imports RxJS necessários para o template (async pipe e BehaviorSubject)
+
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
 import { HttpClientModule } from '@angular/common/http';
 
-// Declaração de variáveis globais (para o compilador TS)
+
 declare const __app_id: string;
 declare const __firebase_config: string;
 declare const __initial_auth_token: string;
 
-// Alert interface definition (Must match Alert.java)
+
 interface Alert {
   id: string;
   timestamp: number; 
@@ -27,7 +27,7 @@ interface Alert {
   status: 'PENDENTE' | 'MITIGADO' | 'RISCO_REAL';
 }
 
-// --- i18n TRANSLATION DATA (A ser usado no template) ---
+
 const TRANSLATIONS: { [key: string]: { [key: string]: string } } = {
   'en': {
     'APP_TITLE': 'AURA Sentinel: Cognitive Threat Defense',
@@ -57,7 +57,7 @@ const TRANSLATIONS: { [key: string]: { [key: string]: string } } = {
     'RISK_CRITICAL': 'Critical Risk',
     'RISK_LOW': 'Low Risk',
     'RISK_MITIGATED': 'Mitigated',
-    'HISTORY_TITLE': 'Response History (Mitigated / Critical)' // Chave adicionada
+    'HISTORY_TITLE': 'Response History (Mitigated / Critical)' 
   },
   'es': {
     'APP_TITLE': 'AURA Sentinel: Defensa Cognitiva contra Amenazas',
@@ -93,12 +93,11 @@ const TRANSLATIONS: { [key: string]: { [key: string]: string } } = {
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html', // Aponta para o arquivo HTML separado
+  templateUrl: './app.component.html', 
   styleUrls: ['./app.component.css'], 
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent implements OnInit, OnDestroy { // AQUI: Exportado e nomeado como AppComponent
-  // Global Variables for Firebase
+export class AppComponent implements OnInit, OnDestroy { 
   private appId: string = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
   private firebaseConfig: any = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
   private initialAuthToken: string | null = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
@@ -108,13 +107,11 @@ export class AppComponent implements OnInit, OnDestroy { // AQUI: Exportado e no
   // Application States (BehaviorSubject/Observables for Data Binding)
   db: Firestore | null = null;
   userId: string | null = null;
-  language: string = 'en'; // Default language
-
-  // Data Observables for the Template
+  language: string = 'en'; 
   private todosAlertasSubject: BehaviorSubject<Alert[]> = new BehaviorSubject<Alert[]>([]);
   todosAlertas: Observable<Alert[]> = this.todosAlertasSubject.asObservable();
   
-  // Computed Properties (Usando RxJS)
+  
   alertasPendentes: Observable<Alert[]> = this.todosAlertas.pipe(
     map((alerts: Alert[]) => alerts.filter((a: Alert) => a.status === 'PENDENTE'))
   );
@@ -133,10 +130,8 @@ export class AppComponent implements OnInit, OnDestroy { // AQUI: Exportado e no
     })
   );
 
-  // State Properties for Two-Way Binding (Language Select) and simple state (Toggle)
   modoEnforce: boolean = false; 
 
-  // i18n Translation Function (Membro da Classe)
   t = (key: string): string => TRANSLATIONS[this.language][key] || key;
 
   ngOnInit() {
@@ -165,7 +160,7 @@ export class AppComponent implements OnInit, OnDestroy { // AQUI: Exportado e no
         await signInAnonymously(auth);
       }
 
-      // 2. Auth State Observer (Tipagem corrigida para User | null)
+      // 2. Auth State Observer
       onAuthStateChanged(auth, (user: User | null) => {
         const uid = user ? user.uid : 'anon-' + Math.random().toString(36).substring(2, 10);
         this.userId = uid;
@@ -181,7 +176,7 @@ export class AppComponent implements OnInit, OnDestroy { // AQUI: Exportado e no
     }
   }
 
-  // Monitor the Enforcement Mode configuration (Tipagem corrigida)
+  // Monitor the Enforcement Mode configuration 
   listenToConfig(uid: string): void {
     if (!this.db) return;
     const configDocRef = doc(this.db, `artifacts/${this.appId}/users/${uid}/config/global`);
@@ -223,7 +218,7 @@ export class AppComponent implements OnInit, OnDestroy { // AQUI: Exportado e no
         });
       });
       alerts.sort((a, b) => b.auraConfidenceScore - a.auraConfidenceScore);
-      this.todosAlertasSubject.next(alerts); // Atualiza o Subject
+      this.todosAlertasSubject.next(alerts); 
     }, (error: any) => {
       console.error("Error listening to alerts:", error);
     });
@@ -260,7 +255,6 @@ export class AppComponent implements OnInit, OnDestroy { // AQUI: Exportado e no
     }
   }
 
-  // The Manager confirms the risk is low/resolved (método assíncrono tipado)
   async marcarComoMitigado(alerta: Alert): Promise<void> {
     if (!this.db) return;
     const alertaDocRef = doc(this.db, `artifacts/${this.appId}/public/data/alerts/${alerta.id}`);
