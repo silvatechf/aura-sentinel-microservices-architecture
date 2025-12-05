@@ -1,25 +1,23 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common'; // CRÍTICO: Fornece o *ngIf e *ngFor
+import { CommonModule } from '@angular/common'; 
 
-import { AppComponent } from './app.component'; // Nosso componente
-import { HttpClientModule } from '@angular/common/http'; // Necessário para futura comunicação HTTP
+import { AppComponent } from './app.component'; 
+import { HttpClientModule } from '@angular/common/http'; 
 
 @NgModule({
-  // Declaramos nosso componente principal
+  // Main component
   declarations: [
     AppComponent
   ],
-  // Importamos todos os módulos necessários para o template funcionar
   imports: [
     BrowserModule,
-    FormsModule, // Para [(ngModel)] no seletor de idioma
-    CommonModule, // Resolve o erro NG0201
-    HttpClientModule // Para APIs HTTP
+    FormsModule, 
+    CommonModule, 
+    HttpClientModule 
   ],
   providers: [],
-  // Iniciamos a aplicação com o AppComponent
   bootstrap: [AppComponent]
 })
 export class AppModule { }
